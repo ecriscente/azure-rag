@@ -72,8 +72,9 @@ def ask(body: Body):
     Use the query parameter to interact with the Azure OpenAI Service
     using the Azure Cognitive Search API for Retrieval Augmented Generation.
     """
-    search_result = search(body.query)
-    chat_bot_response = assistant(body.query, search_result)
+    # search_result = search(body.query)
+    # chat_bot_response = assistant(body.query, search_result)
+    chat_bot_response = assistant(body.query)
     return {'response': chat_bot_response}
 
 
@@ -99,17 +100,18 @@ def search(query):
     return search_results
 
 
-def assistant(query, context):
+# def assistant(query, context):
+def assistant(query):
     messages=[
         # Set the system characteristics for this chat bot
-        {"role": "system", "content": "Asisstant is a chatbot that helps you find the best wine for your taste."},
+        {"role": "system", "content": "You are just a normal chatbot."},
 
         # Set the query so that the chatbot can respond to it
         {"role": "user", "content": query},
 
         # Add the context from the vector search results so that the chatbot can use
         # it as part of the response for an augmented context
-        {"role": "assistant", "content": str(context)}
+        # {"role": "assistant", "content": str(context)}
     ]
 
     # response = openai.ChatCompletion.create(
